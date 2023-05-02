@@ -1,0 +1,15 @@
+{
+  "name": "com.koitan.koitanlib",
+  "author": "koitan",
+  "version": "1.0.0",
+  "displayName": "KoitanLib",
+  "description": "This is a test package",
+  "unity": "2021.3",
+  "samples": [
+    {
+      "displayName": "Example",
+      "description": "Example",
+      "path": "Samples/Example"
+    }
+  ]
+}
