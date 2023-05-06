@@ -16,7 +16,7 @@ namespace KoitanLib
             [MenuItem("KoitanLib/Scene Launcher")]
             static void Open()
             {
-                GetWindow<SceneLaunchWindow>("SceneLauncher");
+                GetWindow<SceneLaunchWindow>("Scene Launcher");
             }
 
             void OnFocus()
