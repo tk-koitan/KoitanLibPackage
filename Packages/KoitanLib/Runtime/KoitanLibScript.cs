@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class KoitanLibScript : MonoBehaviour
 {
+    [SerializeField]
+    GameObject obj;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,6 +14,11 @@ public class KoitanLibScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    static void InitInstance()
     {
 
     }
