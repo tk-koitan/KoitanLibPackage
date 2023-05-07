@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Packages/com.koitan.koitanlib/KoitanLib/Scenes/ManagerScene.unity
     guid: c2f8865b69a22154c8b87b75e151d0af
+  - enabled: 1
+    path: Packages/com.koitan.koitanlib/KoitanLib/Scenes/DebugScene.unity
+    guid: d5c62f92208900a4f8715052b0189741
   m_configObjects: {}
