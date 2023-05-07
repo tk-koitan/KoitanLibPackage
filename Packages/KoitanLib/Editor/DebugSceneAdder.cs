@@ -41,4 +41,43 @@ public static class DebugSceneAdder
         }
         Debug.Log("デバッグシーンがありません");
     }
+
+    [MenuItem("KoitanLib/AddDefine")]
+    private static void AddDefine()
+    {
+        string debugDefine = "KOITAN_DEBUG";
+        var sbtg = EditorUserBuildSettings.selectedBuildTargetGroup;
+        string[] defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(sbtg).Split(";");
+        for (int i = 0; i < defines.Length; i++)
+        {
+            if (defines[i] == debugDefine)
+            {
+                Debug.Log("既にKOITAN＿DEBUGはあります");
+                return;
+            }
+        }
+
+        ArrayUtility.Add(ref defines, debugDefine);
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(sbtg, string.Join(";", defines));
+        Debug.Log("KOITAN_DEBUGを追加しました");
+    }
+
+    [MenuItem("KoitanLib/RemoveDefine")]
+    private static void RemoveDefine()
+    {
+        string debugDefine = "KOITAN_DEBUG";
+        var sbtg = EditorUserBuildSettings.selectedBuildTargetGroup;
+        string[] defines = PlayerSettings.GetScriptingDefineSymbolsForGroup(sbtg).Split(";");
+        for (int i = 0; i < defines.Length; i++)
+        {
+            if (defines[i] == debugDefine)
+            {
+                ArrayUtility.RemoveAt(ref defines, i);
+                Debug.Log("KOITAN＿DEBUGを削除しました");
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(sbtg, string.Join(";", defines));
+                return;
+            }
+        }
+        Debug.Log("KOITAN_DEBUGが見つかりません");
+    }
 }

@@ -28,7 +28,7 @@ namespace KoitanLib
             {
                 EditorGUI.BeginDisabledGroup(EditorApplication.isPlaying);
                 this.scrollPos = EditorGUILayout.BeginScrollView(this.scrollPos);
-                EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
+                EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;                
                 foreach (var scene in scenes)
                 {
                     string[] strs = scene.path.Split('/');
