@@ -11,5 +11,8 @@
       "description": "Example",
       "path": "Samples/Example"
     }
-  ]
+  ],
+  "dependencies": {
+    "com.unity.inputsystem": "1.5.1"
+  }
 }
