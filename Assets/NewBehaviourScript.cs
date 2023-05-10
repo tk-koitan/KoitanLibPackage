@@ -13,6 +13,6 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        KoitanLib.KoitanDebug.Display($"Time.time = {Time.time}");
+        KoitanLib.KoitanDebug.Display($"Time.time = {Time.time}\n");
     }
 }
