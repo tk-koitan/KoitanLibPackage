@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KoitanLib;
 
-public class NewBehaviourScript : MonoBehaviour
+public class InputTest : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -13,6 +14,6 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        KoitanLib.KoitanDebug.Display($"Time.time = {Time.time}\n");
+        //KoitanDebug.Display($"{KoitanInput.Get(ButtonCode.A)}\n");
     }
 }

@@ -6,6 +6,7 @@ using KoitanLib;
 
 public class TestPlayer : MonoBehaviour
 {
+    /*
     private PlayerInput playerInput;
     private InputAction StickInput;
     private InputAction AInput;
@@ -13,10 +14,13 @@ public class TestPlayer : MonoBehaviour
     private InputAction XInput;
     private InputAction YInput;
     private InputAction StartInput;
+    */
+    private IControllerInput controller;
 
     // Start is called before the first frame update
     void Start()
     {
+        /*
         TryGetComponent(out playerInput);
         StickInput = playerInput.currentActionMap.FindAction("Stick");        
         AInput = playerInput.currentActionMap.FindAction("A");
@@ -24,13 +28,20 @@ public class TestPlayer : MonoBehaviour
         XInput = playerInput.currentActionMap.FindAction("X");
         YInput = playerInput.currentActionMap.FindAction("Y");
         StartInput = playerInput.currentActionMap.FindAction("Start");
+        */
+        TryGetComponent(out controller);
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         Vector2 input = StickInput.ReadValue<Vector2>();
         transform.Translate(10f * input * Time.deltaTime);
         KoitanDebug.Display($"Index{playerInput.playerIndex} : {playerInput.devices[0].device} : {AInput.ReadValue<float>()}{BInput.ReadValue<float>()}{XInput.ReadValue<float>()}{YInput.ReadValue<float>()}{StartInput.ReadValue<float>()}\n");
+        */
+        //transform.Translate(KoitanInput.GetStick(StickCode.LeftStick, controller.GetIndex()) * 10f * Time.deltaTime);
+        transform.Translate(controller.GetStick(StickCode.LeftStick) * 10f * Time.deltaTime);
+
     }
 }
