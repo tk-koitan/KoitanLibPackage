@@ -20,7 +20,6 @@ namespace KoitanLib
         private Dictionary<ButtonCode, bool> oldButton = new Dictionary<ButtonCode, bool>();
         private Dictionary<StickCode, InputAction> currentStickInput = new Dictionary<StickCode, InputAction>();
         private Dictionary<StickCode, Vector2> stick = new Dictionary<StickCode, Vector2>();
-        //private Dictionary<ButtonCode, InputAction> currentInput = new Dictionary<ButtonCode, InputAction>();
         private string controllerName = "ControllerName";
         private int joinIndex = -1;
 
@@ -101,9 +100,9 @@ namespace KoitanLib
             return joinIndex;
         }
 
-        public PlayerInput GetPlayerInput()
+        public void DeleteSelf()
         {
-            return playerInput;
+            Destroy(gameObject);
         }
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace KoitanLib
 {
@@ -159,9 +160,17 @@ namespace KoitanLib
         {
             for (int i = 0; i < Instance.controllerList.Count; i++)
             {
-                Destroy(Instance.controllerList[i].GetPlayerInput().gameObject);
+                Instance.controllerList[i].DeleteSelf();
             }
             Instance.controllerList.Clear();
+        }
+
+        public void OnPlayerJoined(PlayerInput playerInput)
+        {
+            for (int i = 0; i < playerInput.devices.Count; i++)
+            {
+                Debug.Log($"{i}:{playerInput.devices[i]}");
+            }
         }
     }
 

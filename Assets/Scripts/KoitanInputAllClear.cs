@@ -14,7 +14,7 @@ public class KoitanInputAllClear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (KoitanInput.GetDown(ButtonCode.Start))
         {
             KoitanInput.DeleteAllControllers();
         }

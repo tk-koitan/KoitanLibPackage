@@ -16,7 +16,7 @@ namespace KoitanLib
 
         public string GetControllerName();
         public int GetIndex();
-        public PlayerInput GetPlayerInput();
+        public void DeleteSelf();
     }
 }
 
