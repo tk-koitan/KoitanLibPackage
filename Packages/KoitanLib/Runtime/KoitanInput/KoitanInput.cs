@@ -39,9 +39,10 @@ namespace KoitanLib
             // コントローラーの更新
             for (int i = 0; i < controllerList.Count; i++)
             {
+                controllerList[i].BeforeUpdateInput();
                 controllerList[i].UpdateInput();
             }
-            /*
+
             string str = string.Empty;
             str += "Name:ABXYLBRBLTRTLPRP\n";
             for (int i = 0; i < controllerList.Count; i++)
@@ -63,7 +64,7 @@ namespace KoitanLib
                     $"\n";
             }
             KoitanDebug.Display(str);
-            */
+
             /*
             if (KoitanInput.GetDown(ButtonCode.LeftStickPress))
             {
@@ -153,6 +154,8 @@ namespace KoitanLib
         public static int JoinController(IControllerInput controllerInput)
         {
             Instance.controllerList.Add(controllerInput);
+            controllerInput.BeforeInitialize();
+            controllerInput.Initialize();
             return Instance.controllerList.Count - 1;
         }
 
@@ -167,10 +170,13 @@ namespace KoitanLib
 
         public void OnPlayerJoined(PlayerInput playerInput)
         {
+            /*
             for (int i = 0; i < playerInput.devices.Count; i++)
             {
                 Debug.Log($"{i}:{playerInput.devices[i]}");
             }
+            */
+            JoinController(playerInput.GetComponent<IControllerInput>());
         }
     }
 

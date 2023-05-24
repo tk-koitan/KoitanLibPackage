@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,74 +5,59 @@ using UnityEngine.InputSystem;
 
 namespace KoitanLib
 {
-    public class ControllerInputHuman : MonoBehaviour, IControllerInput
+    public abstract class ControllerInput : MonoBehaviour, IControllerInput
     {
-        private PlayerInput playerInput;
-
-
-        /// <summary>
-        /// アナログ入力のデッドライン
-        /// </summary>
-        private float deadline = 0.1f;
-        private Dictionary<ButtonCode, InputAction> currentButtonInput = new Dictionary<ButtonCode, InputAction>();
-        private Dictionary<ButtonCode, bool> button = new Dictionary<ButtonCode, bool>();
-        private Dictionary<ButtonCode, bool> oldButton = new Dictionary<ButtonCode, bool>();
-        private Dictionary<StickCode, InputAction> currentStickInput = new Dictionary<StickCode, InputAction>();
-        private Dictionary<StickCode, Vector2> stick = new Dictionary<StickCode, Vector2>();
-        private string controllerName = "ControllerName";
-        private int joinIndex = -1;
+        protected float deadline = 0.1f;
+        protected Dictionary<ButtonCode, bool> button = new Dictionary<ButtonCode, bool>();
+        protected Dictionary<StickCode, Vector2> stick = new Dictionary<StickCode, Vector2>();
+        protected Dictionary<ButtonCode, bool> oldButton = new Dictionary<ButtonCode, bool>();
+        protected string controllerName = "ControllerName";
+        protected int joinIndex = -1;
 
         public void BeforeInitialize()
+        {
+            for (int i = 0; i < KoitanInput.buttonCodes.Length; i++)
+            {
+                ButtonCode code = KoitanInput.buttonCodes[i];
+                button.Add(code, false);
+                oldButton.Add(code, false);
+            }
+            for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
+            {
+                StickCode code = KoitanInput.stickCodes[i];
+                stick.Add(code, Vector2.zero);
+            }
+        }
+
+
+        public virtual void Initialize()
         {
 
         }
 
         public void BeforeUpdateInput()
         {
-
-        }
-
-        public void Initialize()
-        {
-            TryGetComponent(out playerInput);
-            for (int i = 0; i < KoitanInput.buttonCodes.Length; i++)
-            {
-                ButtonCode code = KoitanInput.buttonCodes[i];
-                //ButtonCodeとActionの名前を一致させる
-                button.Add(code, false);
-                oldButton.Add(code, false);
-                currentButtonInput.Add(code, playerInput.currentActionMap.FindAction(code.ToString()));
-            }
-            for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
-            {
-                StickCode code = KoitanInput.stickCodes[i];
-                //StickCodeとActionの名前を一致させる
-                currentStickInput.Add(code, playerInput.currentActionMap.FindAction(code.ToString()));
-                stick.Add(code, Vector2.zero);
-            }
-            DontDestroyOnLoad(this);
-            controllerName = playerInput.devices[0].name;
-            //登録
-            //joinIndex = KoitanInput.JoinController(this);
-        }
-
-
-        public void UpdateInput()
-        {
-            //更新
+            //前の情報を覚えておく
             for (int i = 0; i < KoitanInput.buttonCodes.Length; i++)
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];
                 oldButton[code] = button[code];
-                button[code] = currentButtonInput[code].ReadValue<float>() > deadline;
             }
 
             for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
             {
                 StickCode code = KoitanInput.stickCodes[i];
-                stick[code] = currentStickInput[code].ReadValue<Vector2>();
             }
         }
+
+
+
+        public virtual void UpdateInput()
+        {
+        }
+
+
+
 
         public bool Get(ButtonCode code)
         {
@@ -114,5 +98,5 @@ namespace KoitanLib
             Destroy(gameObject);
         }
     }
-
 }
+

@@ -5,46 +5,24 @@ using UnityEngine.InputSystem;
 
 namespace KoitanLib
 {
-    public class ControllerInputAI : MonoBehaviour, IControllerInput
+    public class ControllerInputAI : ControllerInput
     {
-        public void UpdateInput()
+        private void Awake()
         {
-            throw new System.NotImplementedException();
-        }
-        public void DeleteSelf()
-        {
-            throw new System.NotImplementedException();
+            controllerName = "AI";
+            KoitanInput.JoinController(this);
+            DontDestroyOnLoad(this);
         }
 
-        public bool Get(ButtonCode code)
+        public override void Initialize()
         {
-            throw new System.NotImplementedException();
+            //base.BeforeInitialize();
         }
 
-        public string GetControllerName()
+        public override void UpdateInput()
         {
-            throw new System.NotImplementedException();
+            //base.BeforeUpdateInput();
+            stick[StickCode.LeftStick] = Quaternion.AngleAxis(Time.time * -180f, Vector3.forward) * Vector2.right;
         }
-
-        public bool GetDown(ButtonCode code)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int GetIndex()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Vector2 GetStick(StickCode code)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool GetUp(ButtonCode code)
-        {
-            throw new System.NotImplementedException();
-        }
-
     }
 }
