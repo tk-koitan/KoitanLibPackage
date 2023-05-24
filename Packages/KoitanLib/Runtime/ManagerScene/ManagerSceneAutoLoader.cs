@@ -21,14 +21,14 @@ namespace KoitanLib
                 SceneManager.LoadScene(debugSceneName, LoadSceneMode.Additive);
             }
 #endif
-
+#if KOITAN_MANAGER
             //ManagerSceneが有効でない時(まだ読み込んでいない時)だけ追加ロードするように
             string managerSceneName = "ManagerScene";
             if (!SceneManager.GetSceneByName(managerSceneName).IsValid())
             {
                 SceneManager.LoadScene(managerSceneName, LoadSceneMode.Additive);
             }
+#endif
         }
-
     }
 }
