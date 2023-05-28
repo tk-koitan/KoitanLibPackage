@@ -16,7 +16,12 @@ public class KoitanInputAllClear : MonoBehaviour
     {
         if (KoitanInput.GetDown(ButtonCode.Start) && KoitanInput.Get(ButtonCode.Select))
         {
-            KoitanInput.DeleteAllControllers();
+            DeleteAll();
         }
+    }
+
+    public void DeleteAll()
+    {
+        KoitanInput.DeleteAllControllers();
     }
 }

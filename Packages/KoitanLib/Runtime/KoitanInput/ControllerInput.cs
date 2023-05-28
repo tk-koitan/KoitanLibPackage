@@ -9,8 +9,9 @@ namespace KoitanLib
     {
         protected float deadline = 0.1f;
         protected Dictionary<ButtonCode, bool> button = new Dictionary<ButtonCode, bool>();
-        protected Dictionary<ButtonCode, float> buttonValue = new Dictionary<ButtonCode, float>();
+        protected Dictionary<ButtonCode, float> buttonRaw = new Dictionary<ButtonCode, float>();
         protected Dictionary<StickCode, Vector2> stick = new Dictionary<StickCode, Vector2>();
+        protected Dictionary<StickCode, Vector2> stickRaw = new Dictionary<StickCode, Vector2>();
         protected Dictionary<ButtonCode, bool> oldButton = new Dictionary<ButtonCode, bool>();
         protected string controllerName = "ControllerName";
         protected int joinIndex = -1;
@@ -21,7 +22,7 @@ namespace KoitanLib
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];
                 button.Add(code, false);
-                buttonValue.Add(code, 0f);
+                buttonRaw.Add(code, 0f);
                 oldButton.Add(code, false);
             }
             for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
@@ -77,34 +78,58 @@ namespace KoitanLib
 
         public float GetRaw(ButtonCode code)
         {
-            return buttonValue[code];
+            return buttonRaw[code];
         }
 
         public void SetButtonValue(ButtonCode code, float value)
         {
-            buttonValue[code] = value;
+            buttonRaw[code] = value;
+            // ‚±‚±‚Åè‡’l‚Å•ª‚¯‚é
             button[code] = value > deadline;
         }
 
         public void SetButtonValue(ButtonCode code, bool value)
         {
-            buttonValue[code] = value ? 1f : 0f;
+            buttonRaw[code] = value ? 1f : 0f;
             button[code] = value;
         }
 
         public Vector2 GetStick(StickCode code)
         {
             Vector2 input = stick[code];
-            if (input.sqrMagnitude < deadline * deadline)
+            if (input.sqrMagnitude <= deadline * deadline)
             {
                 return Vector2.zero;
             }
             return input;
         }
 
+        public Vector2 GetStickRaw(StickCode code)
+        {
+            return stickRaw[code];
+        }
+
+        public void SetStickValue(StickCode code, Vector2 value)
+        {
+            stickRaw[code] = value;
+            if (value.sqrMagnitude <= deadline * deadline)
+            {
+                stick[code] = Vector2.zero;
+            }
+            else
+            {
+                stick[code] = value;
+            }
+        }
+
         public string GetControllerName()
         {
             return controllerName;
+        }
+
+        public virtual void SetMotorSpeeds(float low, float high, float duration)
+        {
+
         }
 
         public int GetIndex()

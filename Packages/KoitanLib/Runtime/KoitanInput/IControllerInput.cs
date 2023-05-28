@@ -53,12 +53,14 @@ namespace KoitanLib
         /// <param name="code"></param>
         /// <returns></returns>
         public Vector2 GetStick(StickCode code);
+        public Vector2 GetStickRaw(StickCode code);
         /// <summary>
         /// コントローラーの名前
         /// </summary>
         /// <returns></returns>
         public string GetControllerName();
         //public int GetIndex();
+        public void SetMotorSpeeds(float low, float high, float duration);
         public void DeleteSelf();
     }
 }

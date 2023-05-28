@@ -47,7 +47,7 @@ namespace KoitanLib
             str += "Name:ABXYLBRBLTRTLPRP\n";
             for (int i = 0; i < controllerList.Count; i++)
             {
-
+                /*
                 str += $"{controllerList[i].GetControllerName()}:" +
                     $"{(controllerList[i].Get(ButtonCode.A) ? "1" : "0")}" +
                     $"{(controllerList[i].Get(ButtonCode.B) ? "1" : "0")}" +
@@ -63,7 +63,7 @@ namespace KoitanLib
                     $"{controllerList[i].GetStick(StickCode.RightStick)}" +
                     $"{controllerList[i].GetStick(StickCode.DPad)}" +
                     $"\n";
-
+                */
                 /*
                 str += $"{controllerList[i].GetControllerName()}:" +
                     $"{(controllerList[i].GetRaw(ButtonCode.A))}" +
@@ -71,6 +71,13 @@ namespace KoitanLib
                     $"\n";
                 */
             }
+            //str += $"Gamepad.current.name = {Gamepad.current.name}\n";
+            /*
+            foreach (var gamepad in Gamepad.all)
+            {
+                str += $"{gamepad.name}:{gamepad.aButton.value}\n";
+            }
+            */
             KoitanDebug.Display(str);
 
             /*
@@ -197,6 +204,14 @@ namespace KoitanLib
         public static string GetControllerName(int index)
         {
             return index < Instance.controllerList.Count ? Instance.controllerList[index].GetControllerName() : "None";
+        }
+
+        public static void SetMoterSpeeds(float low, float high, float duration, int index)
+        {
+            if (index < Instance.controllerList.Count)
+            {
+                Instance.controllerList[index].SetMotorSpeeds(low, high, duration);
+            }
         }
 
         public static int JoinController(IControllerInput controllerInput)

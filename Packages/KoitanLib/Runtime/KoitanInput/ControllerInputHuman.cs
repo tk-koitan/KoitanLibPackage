@@ -11,10 +11,14 @@ namespace KoitanLib
         private PlayerInput playerInput;
         private Dictionary<ButtonCode, InputAction> currentButtonInput = new Dictionary<ButtonCode, InputAction>();
         private Dictionary<StickCode, InputAction> currentStickInput = new Dictionary<StickCode, InputAction>();
+        private Gamepad gamepad;
 
         public override void Initialize()
         {
             TryGetComponent(out playerInput);
+
+            gamepad = playerInput.GetDevice<Gamepad>();
+
             for (int i = 0; i < KoitanInput.buttonCodes.Length; i++)
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];
@@ -45,6 +49,18 @@ namespace KoitanLib
                 stick[code] = currentStickInput[code].ReadValue<Vector2>();
             }
         }
-    }
 
+        public override void SetMotorSpeeds(float low, float high, float duration)
+        {
+            if (gamepad == null) return;
+            StartCoroutine(MotorCoroutine(low, high, duration));
+        }
+
+        IEnumerator MotorCoroutine(float low, float high, float duration)
+        {
+            gamepad.SetMotorSpeeds(low, high);
+            yield return new WaitForSeconds(duration);
+            gamepad.SetMotorSpeeds(0f, 0f);
+        }
+    }
 }
