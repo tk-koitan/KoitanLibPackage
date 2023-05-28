@@ -42,6 +42,12 @@ namespace KoitanLib
         /// <returns></returns>
         public bool GetUp(ButtonCode code);
         /// <summary>
+        /// ボタンの生の値
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public float GetRaw(ButtonCode code);
+        /// <summary>
         /// スティックの入力量 (-1.0~1.0)
         /// </summary>
         /// <param name="code"></param>

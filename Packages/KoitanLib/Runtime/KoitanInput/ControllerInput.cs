@@ -9,6 +9,7 @@ namespace KoitanLib
     {
         protected float deadline = 0.1f;
         protected Dictionary<ButtonCode, bool> button = new Dictionary<ButtonCode, bool>();
+        protected Dictionary<ButtonCode, float> buttonValue = new Dictionary<ButtonCode, float>();
         protected Dictionary<StickCode, Vector2> stick = new Dictionary<StickCode, Vector2>();
         protected Dictionary<ButtonCode, bool> oldButton = new Dictionary<ButtonCode, bool>();
         protected string controllerName = "ControllerName";
@@ -20,6 +21,7 @@ namespace KoitanLib
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];
                 button.Add(code, false);
+                buttonValue.Add(code, 0f);
                 oldButton.Add(code, false);
             }
             for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
@@ -54,8 +56,8 @@ namespace KoitanLib
 
         public virtual void UpdateInput()
         {
-        }
 
+        }
 
 
 
@@ -71,6 +73,23 @@ namespace KoitanLib
         public bool GetUp(ButtonCode code)
         {
             return oldButton[code] && !button[code];
+        }
+
+        public float GetRaw(ButtonCode code)
+        {
+            return buttonValue[code];
+        }
+
+        public void SetButtonValue(ButtonCode code, float value)
+        {
+            buttonValue[code] = value;
+            button[code] = value > deadline;
+        }
+
+        public void SetButtonValue(ButtonCode code, bool value)
+        {
+            buttonValue[code] = value ? 1f : 0f;
+            button[code] = value;
         }
 
         public Vector2 GetStick(StickCode code)

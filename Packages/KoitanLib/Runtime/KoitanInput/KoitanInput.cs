@@ -47,6 +47,7 @@ namespace KoitanLib
             str += "Name:ABXYLBRBLTRTLPRP\n";
             for (int i = 0; i < controllerList.Count; i++)
             {
+
                 str += $"{controllerList[i].GetControllerName()}:" +
                     $"{(controllerList[i].Get(ButtonCode.A) ? "1" : "0")}" +
                     $"{(controllerList[i].Get(ButtonCode.B) ? "1" : "0")}" +
@@ -62,6 +63,13 @@ namespace KoitanLib
                     $"{controllerList[i].GetStick(StickCode.RightStick)}" +
                     $"{controllerList[i].GetStick(StickCode.DPad)}" +
                     $"\n";
+
+                /*
+                str += $"{controllerList[i].GetControllerName()}:" +
+                    $"{(controllerList[i].GetRaw(ButtonCode.A))}" +
+                    $"{(controllerList[i].GetRaw(ButtonCode.LT))}" +
+                    $"\n";
+                */
             }
             KoitanDebug.Display(str);
 
@@ -73,6 +81,23 @@ namespace KoitanLib
             */
         }
 
+        /// <summary>
+        /// ボタンの生の値
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static float GetRaw(ButtonCode code, int index)
+        {
+            return index < Instance.controllerList.Count ? Instance.controllerList[index].GetRaw(code) : 0f;
+        }
+
+        /// <summary>
+        /// ボタンを押しているか
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public static bool Get(ButtonCode code, int index)
         {
             return index < Instance.controllerList.Count ? Instance.controllerList[index].Get(code) : false;
@@ -90,6 +115,12 @@ namespace KoitanLib
             return false;
         }
 
+        /// <summary>
+        /// ボタンを押した瞬間か
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public static bool GetDown(ButtonCode code, int index)
         {
             return index < Instance.controllerList.Count ? Instance.controllerList[index].GetDown(code) : false;
@@ -107,6 +138,12 @@ namespace KoitanLib
             return false;
         }
 
+        /// <summary>
+        /// ボタンを離した瞬間か
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public static bool GetUp(ButtonCode code, int index)
         {
             return index < Instance.controllerList.Count ? Instance.controllerList[index].GetUp(code) : false;
@@ -124,6 +161,12 @@ namespace KoitanLib
             return false;
         }
 
+        /// <summary>
+        /// スティックの入力量 (-1.0~1.0)
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public static Vector2 GetStick(StickCode code, int index)
         {
             return index < Instance.controllerList.Count ? Instance.controllerList[index].GetStick(code) : Vector2.zero;
@@ -146,6 +189,11 @@ namespace KoitanLib
             return maxInput;
         }
 
+        /// <summary>
+        /// コントローラーの名前
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public static string GetControllerName(int index)
         {
             return index < Instance.controllerList.Count ? Instance.controllerList[index].GetControllerName() : "None";
@@ -170,12 +218,12 @@ namespace KoitanLib
 
         public void OnPlayerJoined(PlayerInput playerInput)
         {
-            /*
+
             for (int i = 0; i < playerInput.devices.Count; i++)
             {
                 Debug.Log($"{i}:{playerInput.devices[i]}");
             }
-            */
+
             JoinController(playerInput.GetComponent<IControllerInput>());
         }
     }

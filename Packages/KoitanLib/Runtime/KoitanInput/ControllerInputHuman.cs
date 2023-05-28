@@ -36,7 +36,7 @@ namespace KoitanLib
             for (int i = 0; i < KoitanInput.buttonCodes.Length; i++)
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];
-                button[code] = currentButtonInput[code].ReadValue<float>() > deadline;
+                SetButtonValue(code, currentButtonInput[code].ReadValue<float>());
             }
 
             for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
