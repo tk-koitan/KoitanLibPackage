@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -206,6 +207,21 @@ namespace KoitanLib
             return index < Instance.controllerList.Count ? Instance.controllerList[index].GetControllerName() : "None";
         }
 
+        public static void SetMoterSpeeds(float low, float high, float duration)
+        {
+            foreach (var controller in Instance.controllerList)
+            {
+                controller.SetMotorSpeeds(low, high, duration);
+            }
+        }
+
+        /// <summary>
+        /// êUìÆÇ≥ÇπÇÈ
+        /// </summary>
+        /// <param name="low"></param>
+        /// <param name="high"></param>
+        /// <param name="duration"></param>
+        /// <param name="index"></param>
         public static void SetMoterSpeeds(float low, float high, float duration, int index)
         {
             if (index < Instance.controllerList.Count)
