@@ -19,6 +19,7 @@ namespace KoitanLib
 
             gamepad = playerInput.GetDevice<Gamepad>();
 
+
             for (int i = 0; i < KoitanInput.buttonCodes.Length; i++)
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];

@@ -30,7 +30,8 @@ namespace KoitanLib
             }
             else
             {
-                Destroy(this);
+                // PlayerManager‚²‚Æ”jŠü                
+                Destroy(gameObject);
             }
         }
 
