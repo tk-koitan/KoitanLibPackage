@@ -48,7 +48,7 @@ namespace KoitanLib
             str += "Name:ABXYLBRBLTRTLPRP\n";
             for (int i = 0; i < controllerList.Count; i++)
             {
-                /*
+
                 str += $"{controllerList[i].GetControllerName()}:" +
                     $"{(controllerList[i].Get(ButtonCode.A) ? "1" : "0")}" +
                     $"{(controllerList[i].Get(ButtonCode.B) ? "1" : "0")}" +
@@ -64,7 +64,7 @@ namespace KoitanLib
                     $"{controllerList[i].GetStick(StickCode.RightStick)}" +
                     $"{controllerList[i].GetStick(StickCode.DPad)}" +
                     $"\n";
-                */
+
                 /*
                 str += $"{controllerList[i].GetControllerName()}:" +
                     $"{(controllerList[i].GetRaw(ButtonCode.A))}" +
@@ -80,7 +80,16 @@ namespace KoitanLib
             }
             */
             KoitanDebug.Display(str);
-
+            /*
+            if (KoitanInput.GetDown(ButtonCode.B))
+            {
+                Debug.Log("KoitanB");
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Mouse");
+            }
+            */
             /*
             if (KoitanInput.GetDown(ButtonCode.LeftStickPress))
             {
