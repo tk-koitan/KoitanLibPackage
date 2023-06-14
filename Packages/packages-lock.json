@@ -6,8 +6,7 @@
       "source": "embedded",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6",
-        "com.unity.inputsystem": "1.5.1",
-        "com.unity.shadergraph": "1.5.1"
+        "com.unity.inputsystem": "1.5.1"
       }
     },
     "com.unity.2d.animation": {
