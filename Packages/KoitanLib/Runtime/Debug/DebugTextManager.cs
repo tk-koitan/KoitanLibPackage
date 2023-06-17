@@ -18,6 +18,7 @@ namespace KoitanLib
         private TextMeshProUGUI textBoxOrigin;
         private Dictionary<int, TextBox> boxDic = new Dictionary<int, TextBox>();
         TextBox a = new TextBox();
+        List<(string, int)> strPriorityPairList = new List<(string, int)>();
 
         private void Awake()
         {
@@ -27,6 +28,13 @@ namespace KoitanLib
         private void LateUpdate()
         {
             //標準
+            // 優先度でソート
+            strPriorityPairList.Sort((a, b) => a.Item2 - b.Item2);
+            for (int i = 0; i < strPriorityPairList.Count; i++)
+            {
+                sb.Append(strPriorityPairList[i].Item1);
+            }
+            strPriorityPairList.Clear();
             textMesh.SetText(sb);
             sb.Clear();
 
@@ -55,7 +63,12 @@ namespace KoitanLib
 
         public void Display(string str)
         {
-            sb.Append(str);
+            strPriorityPairList.Add((str, 0));
+        }
+
+        public void Display(string str, int priority)
+        {
+            strPriorityPairList.Add((str, priority));
         }
 
         public void DisplayBox(string str, MonoBehaviour mono)

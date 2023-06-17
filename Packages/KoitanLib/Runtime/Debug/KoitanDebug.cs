@@ -32,9 +32,9 @@ namespace KoitanLib
         }
 
         [Conditional("KOITAN_DEBUG")]
-        public static void Display(string str)
+        public static void Display(string str, int priority = 0)
         {
-            instance.dtm.Display(str);
+            instance.dtm.Display(str, priority);
         }
 
         [Conditional("KOITAN_DEBUG")]
