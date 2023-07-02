@@ -23,9 +23,6 @@ public class VisualizerCircle : MonoBehaviour
     [SerializeField]
     AudioSource audioSource;
     int resolution = 1024;
-    Vector3[] postions = new Vector3[1024];
-    [SerializeField]
-    float gain = 10f;
     [SerializeField]
     float raidus = 1f;
     [SerializeField]

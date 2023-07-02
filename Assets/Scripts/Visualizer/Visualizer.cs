@@ -26,13 +26,9 @@ public class Visualizer : MonoBehaviour
     AudioSource audioSource;
     int resolution = 1024;
     [SerializeField]
-    float gain = 10f;
-    [SerializeField]
     float raidus = 1f;
     [SerializeField]
     float attenuationRate = 0.9f;
-    [SerializeField]
-    float gainRatio = 2f;
     [SerializeField]
     float gainMax = 100f;
     // Start is called before the first frame update
