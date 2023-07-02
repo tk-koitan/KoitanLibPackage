@@ -190,7 +190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1772620631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   audioSource: {fileID: 1990036674}
   raidus: 5
   attenuationRate: 0.9
-  gainMax: 100
+  gainMax: 300
 --- !u!23 &1772620632
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -427,16 +427,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa1c6af70f81a64ea5dc50b30176fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 16
-  column: 32
-  width: 0.5
-  height: 0.5
-  skinWidth: 0.05
+  row: 18
+  column: 24
+  width: 0.25
+  height: 0.25
+  skinWidth: 0.01
   max: 1
   audioSource: {fileID: 1990036674}
   raidus: 1
   attenuationRate: 0.9
-  gainMax: 100
+  gainMax: 300
 --- !u!23 &1812159078
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -457,7 +457,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 306d496e3c9f1f94e9c09a825c3fa3c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -495,7 +495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812159076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: -4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
