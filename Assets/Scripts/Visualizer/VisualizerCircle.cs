@@ -6,6 +6,9 @@ using UnityEngine;
 public class VisualizerCircle : MonoBehaviour
 {
     MeshFilter mf;
+    MeshRenderer mr;
+    [SerializeField]
+    int sortingOrder;
     private Mesh mesh;
     private Vector3[] vertices = new Vector3[4];
     private Color[] colors = new Color[4];
@@ -33,6 +36,7 @@ public class VisualizerCircle : MonoBehaviour
     void Start()
     {
         TryGetComponent(out mf);
+        TryGetComponent(out mr);
         mesh = new Mesh();
         vertices = new Vector3[4 * row * column];
         triangles = new int[6 * row * column];
@@ -76,6 +80,7 @@ public class VisualizerCircle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mr.sortingOrder = sortingOrder;
         float[] spectrum = new float[resolution];
         audioSource.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
         float[] spectrumSum = new float[column];

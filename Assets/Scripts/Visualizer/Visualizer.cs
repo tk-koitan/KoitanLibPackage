@@ -50,10 +50,10 @@ public class Visualizer : MonoBehaviour
                 vertices[vIndex + 1] = ll + new Vector3(width - skinWidth, skinWidth, 0);
                 vertices[vIndex + 2] = ll + new Vector3(skinWidth, height - skinWidth, 0);
                 vertices[vIndex + 3] = ll + new Vector3(width - skinWidth, height - skinWidth, 0);
-                colors[vIndex + 0] = Color.white;
-                colors[vIndex + 1] = Color.white;
-                colors[vIndex + 2] = Color.white;
-                colors[vIndex + 3] = Color.white;
+                colors[vIndex + 0] = Color.clear;
+                colors[vIndex + 1] = Color.clear;
+                colors[vIndex + 2] = Color.clear;
+                colors[vIndex + 3] = Color.clear;
                 triangles[tIndex + 0] = vIndex;
                 triangles[tIndex + 1] = vIndex + 2;
                 triangles[tIndex + 2] = vIndex + 1;
