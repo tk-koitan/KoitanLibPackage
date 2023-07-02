@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer))]
 public class Visualizer : MonoBehaviour
 {
     MeshFilter mf;
@@ -24,11 +25,16 @@ public class Visualizer : MonoBehaviour
     [SerializeField]
     AudioSource audioSource;
     int resolution = 1024;
-    Vector3[] postions = new Vector3[1024];
     [SerializeField]
     float gain = 10f;
     [SerializeField]
     float raidus = 1f;
+    [SerializeField]
+    float attenuationRate = 0.9f;
+    [SerializeField]
+    float gainRatio = 2f;
+    [SerializeField]
+    float gainMax = 100f;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,7 +84,8 @@ public class Visualizer : MonoBehaviour
         float[] spectrumSum = new float[column];
         for (int i = 0; i < resolution; i++)
         {
-            spectrumSum[column * i / resolution] += spectrum[i] * gain;
+            float ratio = (float)i / resolution;
+            spectrumSum[column * i / resolution] += spectrum[i] * Mathf.Exp(ratio * Mathf.Log(gainMax));
         }
         int cIndex = 0;
         for (int j = 0; j < column; j++)
@@ -100,10 +107,10 @@ public class Visualizer : MonoBehaviour
                     colors[cIndex + 2] = Color.clear;
                     colors[cIndex + 3] = Color.clear;
                     */
-                    colors[cIndex + 0] *= 0.5f;
-                    colors[cIndex + 1] *= 0.5f;
-                    colors[cIndex + 2] *= 0.5f;
-                    colors[cIndex + 3] *= 0.5f;
+                    colors[cIndex + 0] *= attenuationRate;
+                    colors[cIndex + 1] *= attenuationRate;
+                    colors[cIndex + 2] *= attenuationRate;
+                    colors[cIndex + 3] *= attenuationRate;
                 }
                 cIndex += 4;
             }
