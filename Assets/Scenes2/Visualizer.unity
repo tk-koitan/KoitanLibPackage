@@ -203,13 +203,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58288054a862a6945a3cceafb6cbb428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sortingOrder: 0
   row: 36
   column: 72
   skinAngle: 0.5
   skinWidth: 0.0025
   max: 1
   audioSource: {fileID: 1990036674}
-  gain: 10
   raidus: 5
   attenuationRate: 0.9
   gainMax: 100
@@ -414,7 +414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1812159077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,10 +434,8 @@ MonoBehaviour:
   skinWidth: 0.05
   max: 1
   audioSource: {fileID: 1990036674}
-  gain: 10
   raidus: 1
   attenuationRate: 0.9
-  gainRatio: 2
   gainMax: 100
 --- !u!23 &1812159078
 MeshRenderer:

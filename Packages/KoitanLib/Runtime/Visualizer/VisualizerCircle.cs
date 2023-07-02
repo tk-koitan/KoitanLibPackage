@@ -6,7 +6,6 @@ using UnityEngine;
 public class VisualizerCircle : MonoBehaviour
 {
     MeshFilter mf;
-    MeshRenderer mr;
     [SerializeField]
     int sortingOrder;
     private Mesh mesh;
@@ -36,7 +35,6 @@ public class VisualizerCircle : MonoBehaviour
     void Start()
     {
         TryGetComponent(out mf);
-        TryGetComponent(out mr);
         mesh = new Mesh();
         vertices = new Vector3[4 * row * column];
         triangles = new int[6 * row * column];
@@ -55,10 +53,10 @@ public class VisualizerCircle : MonoBehaviour
                 vertices[vIndex + 1] = new Vector3(r * Mathf.Cos(nextTheta), r * Mathf.Sin(nextTheta));
                 vertices[vIndex + 2] = new Vector3(nextR * Mathf.Cos(theta), nextR * Mathf.Sin(theta));
                 vertices[vIndex + 3] = new Vector3(nextR * Mathf.Cos(nextTheta), nextR * Mathf.Sin(nextTheta));
-                colors[vIndex + 0] = Color.white;
-                colors[vIndex + 1] = Color.white;
-                colors[vIndex + 2] = Color.white;
-                colors[vIndex + 3] = Color.white;
+                colors[vIndex + 0] = Color.black;
+                colors[vIndex + 1] = Color.black;
+                colors[vIndex + 2] = Color.black;
+                colors[vIndex + 3] = Color.black;
                 triangles[tIndex + 0] = vIndex;
                 triangles[tIndex + 1] = vIndex + 2;
                 triangles[tIndex + 2] = vIndex + 1;
@@ -80,9 +78,9 @@ public class VisualizerCircle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mr.sortingOrder = sortingOrder;
         float[] spectrum = new float[resolution];
-        audioSource.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
+        //audioSource.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
+        AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
         float[] spectrumSum = new float[column];
         for (int i = 0; i < resolution; i++)
         {
@@ -94,7 +92,7 @@ public class VisualizerCircle : MonoBehaviour
         {
             for (int i = 0; i < row; i++)
             {
-                if (spectrumSum[j] >= max * i / row)
+                if (spectrumSum[j] >= max * (i + 1) / row)
                 {
                     colors[cIndex + 0] = Color.white;
                     colors[cIndex + 1] = Color.white;
@@ -114,5 +112,10 @@ public class VisualizerCircle : MonoBehaviour
 
         mesh.SetColors(colors);
         mf.mesh = mesh;
+    }
+
+    private void OnValidate()
+    {
+        GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
     }
 }
