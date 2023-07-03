@@ -10,6 +10,7 @@ public class Visualizer : MonoBehaviour
     private Vector3[] vertices = new Vector3[4];
     private Color[] colors = new Color[4];
     private int[] triangles = new int[6];
+    private Vector2[] uvs = new Vector2[6];
     [SerializeField]
     int row = 8;
     [SerializeField]
@@ -31,6 +32,10 @@ public class Visualizer : MonoBehaviour
     float attenuationRate = 0.9f;
     [SerializeField]
     float gainMax = 100f;
+    [SerializeField]
+    AudioSpectrumData spectrumData;
+    [SerializeField]
+    bool isUseBakeData;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +44,7 @@ public class Visualizer : MonoBehaviour
         vertices = new Vector3[4 * row * column];
         triangles = new int[6 * row * column];
         colors = new Color[4 * row * column];
+        uvs = new Vector2[4 * row * column];
         int vIndex = 0;
         int tIndex = 0;
         for (int j = 0; j < column; j++)
@@ -54,6 +60,10 @@ public class Visualizer : MonoBehaviour
                 colors[vIndex + 1] = Color.clear;
                 colors[vIndex + 2] = Color.clear;
                 colors[vIndex + 3] = Color.clear;
+                uvs[vIndex + 0] = new Vector2(0f, 0f);
+                uvs[vIndex + 1] = new Vector2(1f, 0f);
+                uvs[vIndex + 2] = new Vector2(0f, 1f);
+                uvs[vIndex + 3] = new Vector2(1f, 1f);
                 triangles[tIndex + 0] = vIndex;
                 triangles[tIndex + 1] = vIndex + 2;
                 triangles[tIndex + 2] = vIndex + 1;
@@ -69,26 +79,39 @@ public class Visualizer : MonoBehaviour
         mesh.SetVertices(vertices);
         mesh.SetTriangles(triangles, 0);
         mesh.SetColors(colors);
+        mesh.SetUVs(0, uvs);
         mf.mesh = mesh;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        float[] spectrum = new float[resolution];
-        audioSource.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
         float[] spectrumSum = new float[column];
-        for (int i = 0; i < resolution; i++)
+        // スペクトラム計算部分
+        if (isUseBakeData)
         {
-            float ratio = (float)i / resolution;
-            spectrumSum[column * i / resolution] += spectrum[i] * Mathf.Exp(ratio * Mathf.Log(gainMax));
+            int n = (int)(audioSource.time / spectrumData.fixedDeltaTime);
+            if (n > 0 && n < spectrumData.datas.Length)
+            {
+                spectrumSum = spectrumData.datas[n].sum;
+            }
+        }
+        else
+        {
+            float[] spectrum = new float[resolution];
+            audioSource.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
+            for (int i = 0; i < resolution; i++)
+            {
+                float ratio = (float)i / resolution;
+                spectrumSum[column * i / resolution] += spectrum[i] * Mathf.Exp(ratio * Mathf.Log(gainMax));
+            }
         }
         int cIndex = 0;
         for (int j = 0; j < column; j++)
         {
             for (int i = 0; i < row; i++)
             {
-                if (spectrumSum[j] >= max * i / row)
+                if (spectrumSum[j] >= max * (i + 1) / row)
                 {
                     colors[cIndex + 0] = Color.white;
                     colors[cIndex + 1] = Color.white;
