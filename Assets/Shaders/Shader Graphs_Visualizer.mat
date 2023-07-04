@@ -56,9 +56,9 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radial: 1.26
-    - _RadiusOffset: 1
-    - _RadiusScale: 3
-    - _Width: 6
+    - _RadiusOffset: 5
+    - _RadiusScale: -1
+    - _Width: 18
     - _YOffset: 0
     m_Colors:
     - _Center: {r: -1.19, g: 4.25, b: 0, a: 0}

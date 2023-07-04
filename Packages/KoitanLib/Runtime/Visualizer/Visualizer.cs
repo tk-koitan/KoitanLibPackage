@@ -95,7 +95,11 @@ namespace KoitanLib
                 int n = (int)(audioSource.time / spectrumData.fixedDeltaTime);
                 if (n > 0 && n < spectrumData.datas.Length)
                 {
-                    spectrumSum = spectrumData.datas[n].sum;
+                    //spectrumSum = spectrumData.datas[n].sum;
+                    for (int i = 0; i < spectrumSum.Length; i++)
+                    {
+                        spectrumSum[i] = spectrumData.datas[n].sum[spectrumData.datas[n].sum.Length * i / column];
+                    }
                 }
             }
             else
