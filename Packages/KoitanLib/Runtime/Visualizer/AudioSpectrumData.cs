@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/SpectrumData")]
-public class AudioSpectrumData : ScriptableObject
+namespace KoitanLib
 {
-    public float fixedDeltaTime;
-    public AudioSpectrumSum[] datas;
-}
+    [CreateAssetMenu(menuName = "ScriptableObject/SpectrumData")]
+    public class AudioSpectrumData : ScriptableObject
+    {
+        public float fixedDeltaTime;
+        public AudioSpectrumSum[] datas;
+    }
 
-[Serializable]
-public struct AudioSpectrumSum
-{
-    public float[] sum;
+    [Serializable]
+    public struct AudioSpectrumSum
+    {
+        public float[] sum;
+    }
 }
