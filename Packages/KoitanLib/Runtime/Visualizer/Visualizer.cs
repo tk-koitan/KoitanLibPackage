@@ -39,7 +39,8 @@ namespace KoitanLib
         [SerializeField]
         bool isUseBakeData;
         // Start is called before the first frame update
-        void Start()
+
+        private void OnValidate()
         {
             TryGetComponent(out mf);
             mesh = new Mesh();
@@ -58,10 +59,10 @@ namespace KoitanLib
                     vertices[vIndex + 1] = ll + new Vector3(width - skinWidth, skinWidth, 0);
                     vertices[vIndex + 2] = ll + new Vector3(skinWidth, height - skinWidth, 0);
                     vertices[vIndex + 3] = ll + new Vector3(width - skinWidth, height - skinWidth, 0);
-                    colors[vIndex + 0] = Color.clear;
-                    colors[vIndex + 1] = Color.clear;
-                    colors[vIndex + 2] = Color.clear;
-                    colors[vIndex + 3] = Color.clear;
+                    colors[vIndex + 0] = Color.white;
+                    colors[vIndex + 1] = Color.white;
+                    colors[vIndex + 2] = Color.white;
+                    colors[vIndex + 3] = Color.white;
                     uvs[vIndex + 0] = new Vector2(0f, 0f);
                     uvs[vIndex + 1] = new Vector2(1f, 0f);
                     uvs[vIndex + 2] = new Vector2(0f, 1f);
@@ -82,6 +83,22 @@ namespace KoitanLib
             mesh.SetTriangles(triangles, 0);
             mesh.SetColors(colors);
             mesh.SetUVs(0, uvs);
+            mf.mesh = mesh;
+        }
+
+        void Start()
+        {
+            TryGetComponent(out mf);
+            mesh = mf.mesh;
+            vertices = mesh.vertices;
+            triangles = mesh.triangles;
+            colors = mesh.colors;
+            // êFÇèâä˙âªÇµÇ‹Ç∑
+            for (int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = Color.clear;
+            }
+            uvs = mesh.uv;
             mf.mesh = mesh;
         }
 
