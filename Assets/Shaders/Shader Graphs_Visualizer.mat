@@ -58,7 +58,7 @@ Material:
     - _Radial: 1.26
     - _RadiusOffset: 2
     - _RadiusScale: 0.5
-    - _Width: 20
+    - _Width: 12
     - _YOffset: 0
     m_Colors:
     - _Center: {r: -1.19, g: 4.25, b: 0, a: 0}

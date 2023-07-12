@@ -14,6 +14,7 @@ namespace KoitanLib
         // Start is called before the first frame update
         void Start()
         {
+            /*
             //ƒ‰ƒ“ƒ_ƒ€‚È”š‚Å–„‚ß‚é
             for (int j = 0; j < data.GetLength(0); j++)
             {
@@ -22,9 +23,11 @@ namespace KoitanLib
                     data[j, i] = UnityEngine.Random.Range(0f, 1f);
                 }
             }
+            */
             using (FileStream fs = new FileStream(path, FileMode.Create))
             using (BinaryWriter bw = new BinaryWriter(fs))
             {
+                /*
                 for (int j = 0; j < data.GetLength(0); j++)
                 {
                     for (int i = 0; i < data.GetLength(1); i++)
@@ -32,26 +35,27 @@ namespace KoitanLib
                         bw.Write(data[j, i]);
                     }
                 }
-                /*
+                */
                 bw.Write(13);
                 bw.Write("testaaaa0000");
                 bw.Write("aiueo");
                 bw.Write(true);
-                */
+                
             }
 
             using (FileStream fs = new FileStream(path, FileMode.Open))
             using (BinaryReader br = new BinaryReader(fs))
             {
                 //Debug.Log(br.ReadInt32());
+                
+                Debug.Log(br.ReadByte());
+                Debug.Log(br.ReadByte());
+                Debug.Log(br.ReadByte());
+                Debug.Log(br.ReadByte());
+                Debug.Log(br.ReadString());
+                Debug.Log(br.ReadString());
+                
                 /*
-                Debug.Log(br.ReadByte());
-                Debug.Log(br.ReadByte());
-                Debug.Log(br.ReadByte());
-                Debug.Log(br.ReadByte());
-                Debug.Log(br.ReadString());
-                Debug.Log(br.ReadString());
-                */
                 for (int j = 0; j < data.GetLength(0); j++)
                 {
                     for (int i = 0; i < data.GetLength(1); i++)
@@ -59,6 +63,7 @@ namespace KoitanLib
                         Debug.Log(br.ReadSingle());
                     }
                 }
+                */
             }
 
             /*
