@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,7 +19,7 @@ public class KoitanLibScript : MonoBehaviour
     void Update()
     {
         debugStr = string.Empty;
-        // ƒQ[ƒ€ƒpƒbƒh‚ªÚ‘±‚³‚ê‚Ä‚¢‚È‚¢‚Ænull‚É‚È‚éB
+        // ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãŒæ¥ç¶šã•ã‚Œã¦ã„ãªã„ã¨nullã«ãªã‚‹ã€‚
         if (Gamepad.current != null)
         {
             debugStr += $"Gamepad.current.buttonNorth.isPressed = {Gamepad.current.buttonNorth.isPressed}\n";
