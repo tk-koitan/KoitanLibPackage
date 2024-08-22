@@ -52,13 +52,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Length: 0
-    - _PolarRatio: 0
+    - _PolarRatio: -0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radial: 1.26
-    - _RadiusOffset: 2
-    - _RadiusScale: 0.5
-    - _Width: 24
+    - _RadiusOffset: 0
+    - _RadiusScale: 1.9
+    - _Width: 120
     - _YOffset: 0
     m_Colors:
     - _Center: {r: -1.19, g: 4.25, b: 0, a: 0}

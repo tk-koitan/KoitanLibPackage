@@ -9,12 +9,22 @@ namespace KoitanLib
     {
         protected float deadline = 0.1f;
         protected Dictionary<ButtonCode, bool> button = new Dictionary<ButtonCode, bool>();
+        protected Dictionary<ButtonCode, bool> buttonF = new Dictionary<ButtonCode, bool>();
         protected Dictionary<ButtonCode, float> buttonRaw = new Dictionary<ButtonCode, float>();
+        protected Dictionary<ButtonCode, float> buttonRawF = new Dictionary<ButtonCode, float>();
         protected Dictionary<StickCode, Vector2> stick = new Dictionary<StickCode, Vector2>();
+        protected Dictionary<StickCode, Vector2> stickF = new Dictionary<StickCode, Vector2>();
         protected Dictionary<StickCode, Vector2> stickRaw = new Dictionary<StickCode, Vector2>();
+        protected Dictionary<StickCode, Vector2> stickRawF = new Dictionary<StickCode, Vector2>();
         protected Dictionary<ButtonCode, bool> oldButton = new Dictionary<ButtonCode, bool>();
+        protected Dictionary<ButtonCode, bool> oldButtonF = new Dictionary<ButtonCode, bool>();
         protected string controllerName = "ControllerName";
         protected int joinIndex = -1;
+
+        void Update()
+        {
+            //KoitanDebug.DisplayBox($"Ç±ÇÒÇ…ÇøÇÕê¢äE{oldButtonF[ButtonCode.A]}", this);
+        }
 
         public void BeforeInitialize()
         {
@@ -22,13 +32,17 @@ namespace KoitanLib
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];
                 button.Add(code, false);
+                buttonF.Add(code, false);
                 buttonRaw.Add(code, 0f);
+                buttonRawF.Add(code, 0f);
                 oldButton.Add(code, false);
+                oldButtonF.Add(code, false);
             }
             for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
             {
                 StickCode code = KoitanInput.stickCodes[i];
                 stick.Add(code, Vector2.zero);
+                stickF.Add(code, Vector2.zero);
             }
         }
 
@@ -44,7 +58,14 @@ namespace KoitanLib
             for (int i = 0; i < KoitanInput.buttonCodes.Length; i++)
             {
                 ButtonCode code = KoitanInput.buttonCodes[i];
-                oldButton[code] = button[code];
+                if (KoitanInput.InUpdateLoop)
+                {
+                    oldButton[code] = button[code];
+                }
+                else
+                {
+                    oldButtonF[code] = buttonF[code];
+                }
             }
 
             for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
@@ -64,39 +85,92 @@ namespace KoitanLib
 
         public bool Get(ButtonCode code)
         {
-            return button[code];
+            if (KoitanInput.InUpdateLoop)
+            {
+                return button[code];
+            }
+            else
+            {
+                return buttonF[code];
+            }
         }
 
         public bool GetDown(ButtonCode code)
         {
-            return !oldButton[code] && button[code];
+            if (KoitanInput.InUpdateLoop)
+            {
+                return !oldButton[code] && button[code];
+            }
+            else
+            {
+                return !oldButtonF[code] && buttonF[code];
+            }
         }
         public bool GetUp(ButtonCode code)
         {
-            return oldButton[code] && !button[code];
+            if (KoitanInput.InUpdateLoop)
+            {
+                return oldButton[code] && !button[code];
+            }
+            else
+            {
+                return oldButtonF[code] && !buttonF[code];
+            }
         }
 
         public float GetRaw(ButtonCode code)
         {
-            return buttonRaw[code];
+            if (KoitanInput.InUpdateLoop)
+            {
+                return buttonRaw[code];
+            }
+            else
+            {
+                return buttonRawF[code];
+            }
         }
 
         public void SetButtonValue(ButtonCode code, float value)
         {
-            buttonRaw[code] = value;
-            // Ç±Ç±Ç≈ËáílÇ≈ï™ÇØÇÈ
-            button[code] = value > deadline;
+            if (KoitanInput.InUpdateLoop)
+            {
+                buttonRaw[code] = value;
+                // Ç±Ç±Ç≈ËáílÇ≈ï™ÇØÇÈ
+                button[code] = value > deadline;
+            }
+            else
+            {
+                buttonRawF[code] = value;
+                // Ç±Ç±Ç≈ËáílÇ≈ï™ÇØÇÈ
+                buttonF[code] = value > deadline;
+            }
         }
 
         public void SetButtonValue(ButtonCode code, bool value)
         {
-            buttonRaw[code] = value ? 1f : 0f;
-            button[code] = value;
+            if (KoitanInput.InUpdateLoop)
+            {
+                buttonRaw[code] = value ? 1f : 0f;
+                button[code] = value;
+            }
+            else
+            {
+                buttonRawF[code] = value ? 1f : 0f;
+                buttonF[code] = value;
+            }
         }
 
         public Vector2 GetStick(StickCode code)
         {
-            Vector2 input = stick[code];
+            Vector2 input;
+            if (KoitanInput.InUpdateLoop)
+            {
+                input = stick[code];
+            }
+            else
+            {
+                input = stickF[code];
+            }
             if (input.sqrMagnitude <= deadline * deadline)
             {
                 return Vector2.zero;
@@ -106,19 +180,41 @@ namespace KoitanLib
 
         public Vector2 GetStickRaw(StickCode code)
         {
-            return stickRaw[code];
+            if (KoitanInput.InUpdateLoop)
+            {
+                return stickRaw[code];
+            }
+            else
+            {
+                return stickRawF[code];
+            }
         }
 
         public void SetStickValue(StickCode code, Vector2 value)
         {
-            stickRaw[code] = value;
-            if (value.sqrMagnitude <= deadline * deadline)
+            if (KoitanInput.InUpdateLoop)
             {
-                stick[code] = Vector2.zero;
+                stickRaw[code] = value;
+                if (value.sqrMagnitude <= deadline * deadline)
+                {
+                    stick[code] = Vector2.zero;
+                }
+                else
+                {
+                    stick[code] = value;
+                }
             }
             else
             {
-                stick[code] = value;
+                stickRawF[code] = value;
+                if (value.sqrMagnitude <= deadline * deadline)
+                {
+                    stickF[code] = Vector2.zero;
+                }
+                else
+                {
+                    stickF[code] = value;
+                }
             }
         }
 

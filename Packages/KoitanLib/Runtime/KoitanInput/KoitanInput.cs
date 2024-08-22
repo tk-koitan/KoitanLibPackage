@@ -13,6 +13,7 @@ namespace KoitanLib
         List<IControllerInput> controllerList = new List<IControllerInput>();
         public static ButtonCode[] buttonCodes;
         public static StickCode[] stickCodes;
+        public static bool InUpdateLoop { get; private set; }
 
         private void Awake()
         {
@@ -26,6 +27,7 @@ namespace KoitanLib
                 stickCodes = new StickCode[Enum.GetValues(typeof(StickCode)).Length];
                 Enum.GetValues(typeof(StickCode)).CopyTo(stickCodes, 0);
                 //Debug.Log(string.Join(",", buttonCodes));
+                InUpdateLoop = false;
             }
             else
             {
@@ -34,9 +36,23 @@ namespace KoitanLib
             }
         }
 
+        private void FixedUpdate()
+        {
+            InUpdateLoop = false;
+            InputSystem.Update();
+            // コントローラーの更新
+            for (int i = 0; i < controllerList.Count; i++)
+            {
+                controllerList[i].BeforeUpdateInput();
+                controllerList[i].UpdateInput();
+            }
+        }
+
         // Update is called once per frame
         void Update()
         {
+            InUpdateLoop = true;
+            InputSystem.Update();            
             // コントローラーの更新
             for (int i = 0; i < controllerList.Count; i++)
             {

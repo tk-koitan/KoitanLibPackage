@@ -47,7 +47,7 @@ namespace KoitanLib
             for (int i = 0; i < KoitanInput.stickCodes.Length; i++)
             {
                 StickCode code = KoitanInput.stickCodes[i];
-                stick[code] = currentStickInput[code].ReadValue<Vector2>();
+                SetStickValue(code, currentStickInput[code].ReadValue<Vector2>());
             }
         }
 
