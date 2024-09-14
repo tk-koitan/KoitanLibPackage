@@ -45,11 +45,11 @@ namespace KoitanLib
                                 EditorSceneManager.OpenScene(scene.path);
                             }
                         }
-                        if (GUILayout.Button("Add", GUILayout.Width(100)))
+                        if (GUILayout.Button("Add", GUILayout.Width(75)))
                         {
                             EditorSceneManager.OpenScene(scene.path, OpenSceneMode.Additive);
                         }
-                        if (GUILayout.Button("Remove", GUILayout.Width(100)))
+                        if (GUILayout.Button("Remove", GUILayout.Width(75)))
                         {
                             EditorSceneManager.OpenScene(scene.path, OpenSceneMode.Additive);
                             EditorSceneManager.CloseScene(SceneManager.GetSceneByPath(scene.path), true);
