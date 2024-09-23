@@ -6,6 +6,7 @@ using System.Linq;
 
 public static class DebugSceneAdder
 {
+#if KOTIAN_EDITOR_DEBUG
 #if UNITY_2021_3_OR_NEWER
     [MenuItem("KoitanLib/AddScene")]
     private static void AddScene()
@@ -81,5 +82,6 @@ public static class DebugSceneAdder
         }
         Debug.Log("KOITAN_DEBUG‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
     }
-#endif    
+#endif
+#endif
 }
