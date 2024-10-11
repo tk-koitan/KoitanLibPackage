@@ -23,5 +23,9 @@ public class TestScript : MonoBehaviour
         {
             Debug.Log("A");
         }
+        if (KoitanInput.GetDown(ButtonCode.B))
+        {
+            Debug.Log("B");
+        }
     }
 }
