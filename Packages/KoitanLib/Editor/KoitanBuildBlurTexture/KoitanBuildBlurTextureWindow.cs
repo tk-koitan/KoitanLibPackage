@@ -132,7 +132,7 @@ namespace KoitanLib
             SpriteRenderer outlineSpriteRenderer = outlineObject.AddComponent<SpriteRenderer>();
             outlineSpriteRenderer.sprite = blurSprite;
             outlineSpriteRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
-            outlineSpriteRenderer.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Koitan/Shaders/Outline.mat");
+            outlineSpriteRenderer.material = AssetDatabase.LoadAssetAtPath<Material>("Packages/com.koitan.koitanlib/KoitanLib/Shaders/KoitanOutlineDefaultMat.mat");
             EditorUtility.SetDirty(outlineObject);
             /*
             Debug.Log($"{AssetDatabase.GetAssetPath(outlineSpriteRenderer.sprite.texture)}");
